@@ -1,0 +1,75 @@
+# ─── Secrets et variables d'environnement ──────────────────────────────────────
+# CRITIQUE : ne jamais committer ces fichiers
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+
+# Cles et certificats
+*.key
+*.pem
+*.p12
+*.pfx
+*.cer
+*.crt
+
+# ─── Dependances ────────────────────────────────────────────────────────────────
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# ─── Build et compilation ────────────────────────────────────────────────────────
+dist/
+build/
+out/
+.next/
+.nuxt/
+.vite/
+.turbo/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+.eggs/
+
+# ─── Editeurs et IDEs ────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ─── Logs ────────────────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+logs/
+
+# ─── Fichiers temporaires ────────────────────────────────────────────────────────
+*.tmp
+*.temp
+.cache/
+.parcel-cache/
+tmp/
+temp/
+
+# ─── Divers ──────────────────────────────────────────────────────────────────────
+.vercel
+.netlify
+coverage/
+.nyc_output/
