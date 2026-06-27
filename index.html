@@ -82,9 +82,15 @@
         <img src="medkit-logo.jpg" alt="Medkit ForAll" style="width:40px; height:40px; border-radius:11px; object-fit:cover; box-shadow:0 4px 12px rgba(0,82,255,0.22);">
         <span dir="ltr" style="font-family:'IBM Plex Sans',sans-serif; font-weight:600; font-size:19px; letter-spacing:-0.4px; color:#11161D;">Medkit ForAll</span>
       </div>
-      <div style="display:flex; align-items:center; gap:8px; padding:6px 13px; border-radius:999px; background:#EAF0FB; border:1px solid rgba(0,82,255,0.12);">
-        <div style="width:7px; height:7px; border-radius:50%; background:#0CAA5A;"></div>
-        <span style="font-size:13px; font-weight:500; color:#0052FF;">صحة عامة بالدارجة</span>
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <a href="https://www.instagram.com/medkit_forall/" target="_blank" rel="noopener noreferrer" dir="ltr" style="display:inline-flex; align-items:center; gap:6px; padding:7px 14px; border-radius:999px; background:linear-gradient(135deg,#833ab4 0%,#fd1d1d 55%,#fcb045 100%); color:#fff; text-decoration:none; font-family:'IBM Plex Sans',sans-serif; font-size:13px; font-weight:600; white-space:nowrap; box-shadow:0 2px 10px rgba(131,58,180,0.28); transition:opacity 0.15s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          @medkit_forall
+        </a>
+        <div style="display:flex; align-items:center; gap:8px; padding:6px 13px; border-radius:999px; background:#EAF0FB; border:1px solid rgba(0,82,255,0.12);">
+          <div style="width:7px; height:7px; border-radius:50%; background:#0CAA5A;"></div>
+          <span style="font-size:13px; font-weight:500; color:#0052FF;">صحة عامة بالدارجة</span>
+        </div>
       </div>
     </div>
   </header>
@@ -198,56 +204,56 @@
 // Remplace "" par l'URL réelle de ton image pour chaque fiche.
 // Ex : 1: "https://ton-site.com/images/skhana.jpg"
 const IMAGE_URLS = {
-   1: "", //  السخانة         — Fièvre
-   2: "", //  صداع الراس      — Céphalées
-   3: "", //  الشقيقة         — Migraine
-   4: "", //  الدوخة          — Vertige
-   5: "", //  السخفة          — Syncope
-   6: "", //  الزكام          — Rhinite
-   7: "", //  الكحبة          — Toux
-   8: "", //  الحلاقم         — Angine
-   9: "", //  النهجة          — Dyspnée
-  10: "", //  اللهجة          — Dyspnée d'effort
-  11: "", //  الصدر كيضر      — Douleur thoracique
-  12: "", //  الرفة           — Palpitations
-  13: "", //  الطونسيون       — HTA
-  14: "", //  التبوريشة       — Frissons
-  15: "", //  وجه معوج        — Paralysie faciale
-  16: "", //  الطرشة          — Acouphènes
-  17: "", //  فقر الدم        — Anémie
-  18: "", //  وجع المعدة      — Gastrite
-  19: "", //  بوزوي           — Colopathie
-  20: "", //  الكرش جارية     — Diarrhée
-  21: "", //  القبط           — Constipation
-  22: "", //  الردة           — Vomissements
-  23: "", //  المغص           — Colique abdominale
-  24: "", //  بوصفير          — Ictère
-  25: "", //  الدم فالخروج    — Rectorragie
-  26: "", //  الحنشت          — Parasitose
-  27: "", //  الزهوق          — Hoquet
-  28: "", //  حريق البول      — Cystite
-  29: "", //  الدم فالبول     — Hématurie
-  30: "", //  الكلاوي         — Colique néphrétique
-  31: "", //  حريق العادة     — Dysménorrhée
-  32: "", //  وجع الولادة     — Contractions
-  33: "", //  تعطال العادة    — Aménorrhée
-  34: "", //  البواسر         — Hémorroïdes
-  35: "", //  كورة فالبزولة   — Nodule mammaire
-  36: "", //  الغدة           — Goitre
-  37: "", //  الحبوب          — Acné
-  38: "", //  الحكة           — Prurit
-  39: "", //  الزغب كيطيح     — Alopécie
-  40: "", //  الولسيس         — Adénopathie
-  41: "", //  الظهر كيضر      — Lombalgie
-  42: "", //  الركابي         — Gonalgie
-  43: "", //  المفاصل         — Arthralgie
-  44: "", //  الكناب          — Crampes
-  45: "", //  ضربة للراس      — Trauma crânien
-  46: "", //  التهرسية        — Fracture
-  47: "", //  الضفرة          — Panaris
-  48: "", //  السكر           — Diabète
-  49: "", //  حبوب لتحت      — IST
-  50: "", //  الفشلة          — Asthénie
+   1: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&q=80&fit=crop",
+   2: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=600&q=80&fit=crop",
+   3: "https://images.unsplash.com/photo-1620147461831-a97b99ade1d3?w=600&q=80&fit=crop",
+   4: "https://images.unsplash.com/photo-1587330979470-3595ac045ab0?w=600&q=80&fit=crop",
+   5: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80&fit=crop",
+   6: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80&fit=crop",
+   7: "https://images.unsplash.com/photo-1584467735048-2b0a0f8c7a8a?w=600&q=80&fit=crop",
+   8: "https://images.unsplash.com/photo-1559181567-c3190fe001ff?w=600&q=80&fit=crop",
+   9: "https://images.unsplash.com/photo-1484557985045-edf25e08da73?w=600&q=80&fit=crop",
+  10: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80&fit=crop",
+  11: "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=600&q=80&fit=crop",
+  12: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=80&fit=crop",
+  13: "https://images.unsplash.com/photo-1576671081837-49000212a0b4?w=600&q=80&fit=crop",
+  14: "https://images.unsplash.com/photo-1572443490709-e56e4a34476b?w=600&q=80&fit=crop",
+  15: "https://images.unsplash.com/photo-1551076805-e1869033e561?w=600&q=80&fit=crop",
+  16: "https://images.unsplash.com/photo-1589149098258-3e9102cd63d3?w=600&q=80&fit=crop",
+  17: "https://images.unsplash.com/photo-1585435557343-3b092031a831?w=600&q=80&fit=crop",
+  18: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80&fit=crop",
+  19: "https://images.unsplash.com/photo-1559711729-1b4a67b54fe2?w=600&q=80&fit=crop",
+  20: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80&fit=crop",
+  21: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=600&q=80&fit=crop",
+  22: "https://images.unsplash.com/photo-1516302752625-fcc3c50ae61f?w=600&q=80&fit=crop",
+  23: "https://images.unsplash.com/photo-1529390079861-591de354faf5?w=600&q=80&fit=crop",
+  24: "https://images.unsplash.com/photo-1575389973960-cd3e44f4e11f?w=600&q=80&fit=crop",
+  25: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&q=80&fit=crop",
+  26: "https://images.unsplash.com/photo-1581091870624-7d4d0f60cdce?w=600&q=80&fit=crop",
+  27: "https://images.unsplash.com/photo-1593062096033-9a26b09da705?w=600&q=80&fit=crop",
+  28: "https://images.unsplash.com/photo-1584467541268-b8f71f29f1b7?w=600&q=80&fit=crop",
+  29: "https://images.unsplash.com/photo-1504813184591-01572f98c85f?w=600&q=80&fit=crop",
+  30: "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=600&q=80&fit=crop",
+  31: "https://images.unsplash.com/photo-1631217073612-123ed4c70891?w=600&q=80&fit=crop",
+  32: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80&fit=crop",
+  33: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80&fit=crop",
+  34: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80&fit=crop",
+  35: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80&fit=crop",
+  36: "https://images.unsplash.com/photo-1530026405186-ed1f139313f1?w=600&q=80&fit=crop",
+  37: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80&fit=crop",
+  38: "https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=600&q=80&fit=crop",
+  39: "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&q=80&fit=crop",
+  40: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=80&fit=crop",
+  41: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=600&q=80&fit=crop",
+  42: "https://images.unsplash.com/photo-1588776814546-1ffbb172f5ce?w=600&q=80&fit=crop",
+  43: "https://images.unsplash.com/photo-1559767180-b1f4d5e98c9c?w=600&q=80&fit=crop",
+  44: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80&fit=crop",
+  45: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80&fit=crop",
+  46: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=600&q=80&fit=crop",
+  47: "https://images.unsplash.com/photo-1584467735048-2b0a0f8c7a8a?w=600&q=80&fit=crop",
+  48: "https://images.unsplash.com/photo-1547489432-cf93fa6c71ee?w=600&q=80&fit=crop",
+  49: "https://images.unsplash.com/photo-1576671081837-49000212a0b4?w=600&q=80&fit=crop",
+  50: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=600&q=80&fit=crop",
 };
 
 const DATA = [
