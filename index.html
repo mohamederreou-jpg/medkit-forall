@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Medkit ForAll — صحة عامة بالدارجة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #11161D;
+    -webkit-font-smoothing: antialiased;
+    background-image: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2000');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+  }
+  input::placeholder { color: #9AA6B2; }
+
+  @keyframes mk-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @keyframes mk-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .card-btn {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    width: 100%; text-align: start;
+    background: #fff; border: 1px solid rgba(17,22,29,0.06); border-radius: 18px;
+    padding: 20px 22px;
+    box-shadow: 0 2px 12px rgba(17,22,29,0.04);
+    cursor: pointer; font-family: inherit;
+    animation: mk-rise 0.35s ease both;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+  .card-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 26px rgba(0,82,255,0.12);
+    border-color: rgba(0,82,255,0.22);
+  }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #fff; border: 1px solid rgba(17,22,29,0.08);
+    border-radius: 999px; padding: 9px 16px 9px 18px;
+    font-family: inherit; font-size: 14.5px; font-weight: 600;
+    color: #0052FF; cursor: pointer;
+    box-shadow: 0 2px 10px rgba(17,22,29,0.05); margin-bottom: 26px;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .back-btn:hover { background: #F4F8FF; border-color: rgba(0,82,255,0.25); }
+
+  .search-input {
+    width: 100%; padding: 18px 56px 18px 22px;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    font-size: 18px; font-weight: 500; color: #11161D;
+    background: #fff; border: 1px solid rgba(17,22,29,0.08);
+    border-radius: 18px; outline: none;
+    box-shadow: 0 8px 30px rgba(17,22,29,0.07);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .search-input:focus {
+    border-color: #0052FF;
+    box-shadow: 0 0 0 4px rgba(0,82,255,0.12), 0 8px 30px rgba(17,22,29,0.07);
+  }
+
+  #view-home { display: flex; flex-direction: column; flex: 1; }
+  #view-detail { display: none; flex: 1; padding: 28px 24px 72px; }
+  #view-detail.active { display: block; }
+  #view-home.hidden { display: none; }
+</style>
+</head>
+<body>
+<div id="app" style="min-height:100vh; display:flex; flex-direction:column; background:rgba(247,249,252,0.91); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);">
+  <!-- subtle pattern overlay -->
+  <div aria-hidden="true" style="position:fixed; inset:0; pointer-events:none; z-index:0; background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpath d='M60,8L68.4,39.7L96.8,23.2L80.3,51.6L112,60L80.3,68.4L96.8,96.8L68.4,80.3L60,112L51.6,80.3L23.2,96.8L39.7,68.4L8,60L39.7,51.6L23.2,23.2L51.6,39.7Z' fill='none' stroke='%230052FF' stroke-opacity='0.03' stroke-width='1.1'/%3E%3C/svg%3E&quot;);"></div>
+
+  <!-- HEADER -->
+  <header style="position:sticky; top:0; z-index:50; background:rgba(255,255,255,0.82); backdrop-filter:saturate(180%) blur(20px); -webkit-backdrop-filter:saturate(180%) blur(20px); border-bottom:1px solid rgba(17,22,29,0.06);">
+    <div style="max-width:1180px; margin:0 auto; padding:12px 24px; display:flex; align-items:center; justify-content:space-between;">
+      <div id="logo-link" style="display:flex; align-items:center; gap:12px; cursor:pointer;">
+        <img src="medkit-logo.jpg" alt="Medkit ForAll" style="width:40px; height:40px; border-radius:11px; object-fit:cover; box-shadow:0 4px 12px rgba(0,82,255,0.22);">
+        <span dir="ltr" style="font-family:'IBM Plex Sans',sans-serif; font-weight:600; font-size:19px; letter-spacing:-0.4px; color:#11161D;">Medkit ForAll</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; padding:6px 13px; border-radius:999px; background:#EAF0FB; border:1px solid rgba(0,82,255,0.12);">
+        <div style="width:7px; height:7px; border-radius:50%; background:#0CAA5A;"></div>
+        <span style="font-size:13px; font-weight:500; color:#0052FF;">صحة عامة بالدارجة</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HOME VIEW -->
+  <div id="view-home">
+
+    <section style="padding:60px 24px 36px;">
+      <div style="max-width:760px; margin:0 auto; text-align:center;">
+        <h1 style="margin:0 0 14px; font-size:42px; line-height:1.18; font-weight:700; letter-spacing:-0.6px; color:#11161D; text-wrap:balance;">فهم صحتك ولّى ساهل</h1>
+        <p style="margin:0 auto 34px; max-width:540px; font-size:18px; line-height:1.6; color:#5B6777; font-weight:400;">قلّب على شنو قال ليك الطبيب بالدارجة ولا بالمصطلح الطبي، وفهم علامات الخطر اللي خاصك تعرفها.</p>
+
+        <div style="position:relative; max-width:600px; margin:0 auto;">
+          <div style="position:absolute; inset-inline-start:20px; top:50%; transform:translateY(-50%); display:flex; pointer-events:none; color:#9AA6B2;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <input id="search-input" type="text" class="search-input" placeholder="شنو قال ليك الطبيب؟">
+        </div>
+        <div id="count-label" style="margin-top:16px; font-size:14px; color:#8A95A3; font-weight:500;"></div>
+      </div>
+    </section>
+
+    <main style="padding:8px 24px 72px;">
+      <div style="max-width:1180px; margin:0 auto;">
+        <div id="results-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:16px;"></div>
+        <div id="no-results" style="display:none; text-align:center; padding:80px 24px; color:#8A95A3;">
+          <div style="font-size:46px; margin-bottom:14px;">🔍</div>
+          <p style="margin:0 0 6px; font-size:19px; font-weight:600; color:#5B6777;">ماكاينش شي نتيجة</p>
+          <p style="margin:0; font-size:15px;">جرّب كلمة أخرى بالدارجة ولا بالمصطلح الطبي بالفرنسية.</p>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- DETAIL VIEW -->
+  <div id="view-detail">
+    <div style="max-width:820px; margin:0 auto; animation:mk-fade 0.3s ease both;">
+      <button id="back-btn" class="back-btn">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>رجوع للبحث</span>
+      </button>
+
+      <div style="background:#fff; border:1px solid rgba(17,22,29,0.06); border-radius:26px; overflow:hidden; box-shadow:0 6px 30px rgba(17,22,29,0.06);">
+
+        <div style="padding:30px 32px 24px;">
+          <h1 id="detail-darija" style="margin:0 0 8px; font-size:38px; line-height:1.15; font-weight:700; letter-spacing:-0.5px; color:#11161D;"></h1>
+          <div>
+            <span id="detail-medical" dir="ltr" style="display:inline-block; font-family:'IBM Plex Sans',sans-serif; font-style:italic; font-weight:500; font-size:17px; color:#0052FF; background:#EFF4FF; padding:5px 13px; border-radius:9px; direction:ltr; unicode-bidi:isolate;"></span>
+          </div>
+        </div>
+
+        <div style="margin:0 32px;">
+          <img id="detail-img" src="" alt="" style="width:100%; height:256px; object-fit:cover; border-radius:16px; box-shadow:0 2px 12px rgba(0,0,0,0.10); display:none; margin-bottom:24px;">
+          <div id="detail-img-fallback" style="width:100%; height:192px; border-radius:16px; margin-bottom:24px; background:linear-gradient(135deg,#EFF4FF 0%,#C7D9FF 100%); display:flex; align-items:center; justify-content:center;">
+            <span id="detail-fallback-text" style="font-size:26px; font-weight:700; color:#0052FF; text-align:center; padding:24px; line-height:1.3;"></span>
+          </div>
+        </div>
+
+        <div style="padding:28px 32px 12px;">
+
+          <section style="margin-bottom:26px;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+              <span style="display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:9px; background:#EFF4FF; color:#0052FF;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 11V16.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="7.6" r="1.1" fill="currentColor"/></svg>
+              </span>
+              <h2 style="margin:0; font-size:18px; font-weight:700; color:#11161D;">التعريف الطبي</h2>
+            </div>
+            <p id="detail-definition" style="margin:0; font-size:16px; line-height:1.8; color:#41505F; font-weight:400;"></p>
+          </section>
+
+          <section style="margin-bottom:26px;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+              <span style="display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:9px; background:#EAF7EF; color:#0CAA5A;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 7H19M5 12H19M5 17H14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+              </span>
+              <h2 style="margin:0; font-size:18px; font-weight:700; color:#11161D;">أعراض أخرى تقدر تحس بيها</h2>
+            </div>
+            <ul id="detail-symptoms" style="margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px;"></ul>
+          </section>
+
+          <section style="margin-bottom:8px;">
+            <div style="background:#FFF1F0; border:1px solid #FBD5D2; border-radius:18px; padding:20px 22px;">
+              <div style="display:flex; align-items:center; gap:9px; margin-bottom:10px;">
+                <span style="font-size:19px; line-height:1;">🚨</span>
+                <h2 style="margin:0; font-size:17px; font-weight:700; color:#B3261E; letter-spacing:-0.2px;">علامات الخطر (Urgences)</h2>
+              </div>
+              <p id="detail-redflag" style="margin:0; font-size:16px; line-height:1.75; color:#9B1C16; font-weight:500;"></p>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer style="background:#11161D; color:#fff; padding:28px 24px;">
+    <div style="max-width:1180px; margin:0 auto; display:flex; align-items:center; gap:14px; justify-content:center; text-align:center; flex-wrap:wrap;">
+      <div style="display:flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:9px; background:rgba(255,255,255,0.1); flex-shrink:0;">
+        <span style="font-size:15px;">⚕️</span>
+      </div>
+      <p style="margin:0; font-size:15px; line-height:1.6; font-weight:500; color:rgba(255,255,255,0.92); max-width:720px;">هذه المعلومات لأغراض تعليمية فقط ولا تعوض استشارة الطبيب.</p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+// ─── IMAGES ───────────────────────────────────────────────────────────────────
+// Remplace "" par l'URL réelle de ton image pour chaque fiche.
+// Ex : 1: "https://ton-site.com/images/skhana.jpg"
+const IMAGE_URLS = {
+   1: "", //  السخانة         — Fièvre
+   2: "", //  صداع الراس      — Céphalées
+   3: "", //  الشقيقة         — Migraine
+   4: "", //  الدوخة          — Vertige
+   5: "", //  السخفة          — Syncope
+   6: "", //  الزكام          — Rhinite
+   7: "", //  الكحبة          — Toux
+   8: "", //  الحلاقم         — Angine
+   9: "", //  النهجة          — Dyspnée
+  10: "", //  اللهجة          — Dyspnée d'effort
+  11: "", //  الصدر كيضر      — Douleur thoracique
+  12: "", //  الرفة           — Palpitations
+  13: "", //  الطونسيون       — HTA
+  14: "", //  التبوريشة       — Frissons
+  15: "", //  وجه معوج        — Paralysie faciale
+  16: "", //  الطرشة          — Acouphènes
+  17: "", //  فقر الدم        — Anémie
+  18: "", //  وجع المعدة      — Gastrite
+  19: "", //  بوزوي           — Colopathie
+  20: "", //  الكرش جارية     — Diarrhée
+  21: "", //  القبط           — Constipation
+  22: "", //  الردة           — Vomissements
+  23: "", //  المغص           — Colique abdominale
+  24: "", //  بوصفير          — Ictère
+  25: "", //  الدم فالخروج    — Rectorragie
+  26: "", //  الحنشت          — Parasitose
+  27: "", //  الزهوق          — Hoquet
+  28: "", //  حريق البول      — Cystite
+  29: "", //  الدم فالبول     — Hématurie
+  30: "", //  الكلاوي         — Colique néphrétique
+  31: "", //  حريق العادة     — Dysménorrhée
+  32: "", //  وجع الولادة     — Contractions
+  33: "", //  تعطال العادة    — Aménorrhée
+  34: "", //  البواسر         — Hémorroïdes
+  35: "", //  كورة فالبزولة   — Nodule mammaire
+  36: "", //  الغدة           — Goitre
+  37: "", //  الحبوب          — Acné
+  38: "", //  الحكة           — Prurit
+  39: "", //  الزغب كيطيح     — Alopécie
+  40: "", //  الولسيس         — Adénopathie
+  41: "", //  الظهر كيضر      — Lombalgie
+  42: "", //  الركابي         — Gonalgie
+  43: "", //  المفاصل         — Arthralgie
+  44: "", //  الكناب          — Crampes
+  45: "", //  ضربة للراس      — Trauma crânien
+  46: "", //  التهرسية        — Fracture
+  47: "", //  الضفرة          — Panaris
+  48: "", //  السكر           — Diabète
+  49: "", //  حبوب لتحت      — IST
+  50: "", //  الفشلة          — Asthénie
+};
+
+const DATA = [
+  { id: 1, darija: "السخانة", medical: "Fièvre / Hyperthermie", definition_medicale: "ارتفاع درجة حرارة الجسم كتر من 38 درجة. هي طريقة دفاعية طبيعية ديال المناعة باش تحارب الميكروبات والتعفنات فالذات.", autres_symptomes: "العيا، العرق بزاف، فقدان الشهية، وحريق فالمفاصل والعضلات.", redFlag: "فايتة 40 درجة، تبوريشة صعيبة، ولا سخانة عند ولد صغير قل من 3 شهور." },
+  { id: 2, darija: "صداع الراس", medical: "Céphalées", definition_medicale: "ألم فجهة وحدة ولا فالراس كامل، كيقدر يكون ناتج على التوتر، العيا، قلة النعاس، ولا مشكل فالعروق.", autres_symptomes: "حساسية للضو ولا الصداع، العيا العام، وصعوبة فالتركيز.", redFlag: "صداع جديد ومجهد بزاف على غفلة، مع سخانة ولا تقية مجهدة." },
+  { id: 3, darija: "الشقيقة", medical: "Migraine", definition_medicale: "حريق مجهد كيشد غالبا فنص الراس، كينبض بحال دقات القلب، وكيقدر يطول لساعات ولا أيام.", autres_symptomes: "الردة، التقية، حساسية كبيرة للضو والصوت، وضبابة فالشوف قبل ما يبدا الحريق.", redFlag: "وجه معوج، ضعف فشي يد ولا رجل، صعوبة فالهضرة." },
+  { id: 4, darija: "الدوخة", medical: "Vertige", definition_medicale: "إحساس باللي الدنيا كدور بيك ولا فقدان التوازن. غالبا كيكون السبب ديالو مشكل فالودن الدخلانية ولا ضغط الدم.", autres_symptomes: "التقية، طنين فالودنين، وصعوبة فالمشي بلاما تعوج.", redFlag: "معاها تقية مجهدة ماكتحبسش، ولا صعوبة فالهضرة (خطر جلطة)." },
+  { id: 5, darija: "السخفة", medical: "Lipothymie / Syncope", definition_medicale: "فقدان الوعي لمدة قصيرة بسبب نقص الدم والأكسجين لي واصل للدماغ.", autres_symptomes: "وجه صفر، عرق بارد، ضبابة فالشوف، وطنين فالودنين قبل السخفة.", redFlag: "نبض معطل بزاف، حريق مجهد فالصدر، ولا السخفة جات مورا مجهود بدني." },
+  { id: 6, darija: "الرواح / الزكام", medical: "Coryza / Rhinite", definition_medicale: "تعفن فيروسي فالمجاري التنفسية الفوقانية (النيف والحلق)، كيعادي بالزربة.", autres_symptomes: "النيف كيجري ولا مخنوق، العطسة، حريق خفيف فالحلاقم، وسخانة قليلة.", redFlag: "سخانة طالعة كتر من 3 أيام، وجع مجهد فالودنين ولا الراس القدام." },
+  { id: 7, darija: "السعلة / الكحبة", medical: "Toux", definition_medicale: "طريقة طبيعية باش الرية والمجاري التنفسية كتنقي راسها من الميكروبات، الغبرة، ولا الإفرازات.", autres_symptomes: "حريق فالحلق، تنخيمة (عامرة ولا خاوية)، ونهجة خفيفة.", redFlag: "كحبة فيها الدم، سعلة ماكتحبسش كتر من 3 سيمانات، ولا نقصان فالوزن." },
+  { id: 8, darija: "الحلاقم", medical: "Angine", definition_medicale: "التهاب فالحلاقم (اللوزتين) كيقدر يكون بسبب فيروس ولا بكتيريا، كيخلي السريط صعيب.", autres_symptomes: "السخانة، ريحة خايبة فالفم، ولسيس منفوخ فالعنق.", redFlag: "صعوبة فالتنفس، سخانة طالعة بزاف ماكتبغيش تهبط بالدوا." },
+  { id: 9, darija: "الضيقة / النهجة", medical: "Asthme / Dyspnée", definition_medicale: "مرض مزمن كيزير العروق ديال الرية، كيصعب دخول وخروج الهوا، خصوصا مع الحساسية ولا البرد.", autres_symptomes: "صدر كيصفر، سعلة ناشفة خصوصا فالليل، وإحساس بالصدر مزير.", redFlag: "شفايف زرقين، الصدر كيضر، المريض ماكيقدرش يهضر جملة كاملة." },
+  { id: 10, darija: "اللهجة", medical: "Dyspnée d'effort", definition_medicale: "صعوبة فالتنفس كتجي غير مع المجهود البدني، بحال المشي ولا طلوع الدروج.", autres_symptomes: "العيا بالزربة، دقات القلب مزروبين مع المجهود.", redFlag: "لهجة جات على غفلة، رجلين منفوخين بزاف، ولا كتجي وخا المريض جالس." },
+  { id: 11, darija: "الصدر كيضر", medical: "Douleur thoracique", definition_medicale: "ألم أو إحساس بالضغط فمنطقة الصدر. كيقدر يكون بسبب العضلات، المعدة، الرية، ولا القلب.", autres_symptomes: "نهجة، حرقة طالعة من المعدة، ولا حريق كيتزاد مع التنفس العميق.", redFlag: "حريق كيمشي لليد اليسرية ولا الفك، مع العرق البارد ولا السخفة." },
+  { id: 12, darija: "الرفة / القلب كيضرب", medical: "Palpitations", definition_medicale: "إحساس المريض بدقات القلب ديالو، كيكونو مزروبين، مجهدين، ولا مامنتظمينش.", autres_symptomes: "العيا، القلق، إحساس بحرارة فالصدر، والدوخة الخفيفة.", redFlag: "رفة مع سخفة، حريق فالصدر، ولا تنفس مقطوع." },
+  { id: 13, darija: "الطونسيون طالعة", medical: "Hypertension artérielle", definition_medicale: "ضغط الدم كيكون طالع فالعروق كتر من القياس العادي (فايت 14/9). كيتسمى القاتل الصامت حيت غالبا مافيهش أعراض.", autres_symptomes: "صداع فاللور ديال الراس فالصباح، تصفار فالودنين، ورعاف من النيف.", redFlag: "صداع مجهد ماكيمشيش، ضبابة فالشوف، تقية، ولا ضعف فشي جهة من الذات." },
+  { id: 14, darija: "التبوريشة", medical: "Frissons", definition_medicale: "رعدة فالعضلات كتجي فاش الذات كتبغي تطلع الحرارة ديالها باش تقاوم شي ميكروب.", autres_symptomes: "إحساس بالبرد وخا مغطي مزيان، السخانة طالعة، والعيا.", redFlag: "مع سخانة طالعة بزاف، حريق فالبول، ولا وجع مجهد فالكلاوي." },
+  { id: 15, darija: "وجه معوج", medical: "Paralysie faciale", definition_medicale: "ضعف ولا شلل فالعضلات ديال نص الوجه، كيقدر يكون بسبب ضربة برد للعين (عصب) ولا مشكل فالدماغ.", autres_symptomes: "العين ماكتسدش، الفم كيعواج ملي كيبتسم المريض، والماكلة كطيح من الفم.", redFlag: "ضعف فيد ولا رجل، صعوبة فالهضرة ولا فالفهم (استعجال طبي لجلطة)." },
+  { id: 16, darija: "الطرشة / تصفار الودن", medical: "Acouphènes", definition_medicale: "سماع أصوات بحال التصفار ولا الطنين فالودن بلاما يكون شي صوت خارجي.", autres_symptomes: "نقص فالسمع، إحساس بالودن مسدودة، والدوخة.", redFlag: "طرشة جات على غفلة فدقة وحدة، مع دوخة مجهدة ماكتخليكش توقف." },
+  { id: 17, darija: "فقر الدم", medical: "Anémie", definition_medicale: "نقص فالكريات الحمرا ولا فالحديد فالدم، الشي لي كيخلي الأكسجين مايوصلش مزيان للذات.", autres_symptomes: "وجه صفر، شفايف بويض، طياح الشعر، والعيا بالزربة.", redFlag: "سخفة مع أقل مجهود، الصدر كيضر، ولا دقات القلب مزروبين بزاف فبلاصتك." },
+  { id: 18, darija: "وجع المعدة", medical: "Gastrite / Ulcère", definition_medicale: "التهاب ولا جرحة فالغشا ديال المعدة، كيسبب حريق غالبا كيكون مرتبط بالماكلة أو الجوع.", autres_symptomes: "الردة، حرقة طالعة للحلق، وإحساس بالشبعة بالزربة.", redFlag: "تقية ديال الدم، خروج كحل بحال الزفت، ولا كرش قاصحة بحال الحجرة." },
+  { id: 19, darija: "المصران / بوزوي", medical: "Colopathie fonctionnelle", definition_medicale: "مشكل فالحركة ديال المصران الغليظ، كيتأثر بزاف بالماكلة، التوتر، والستريس.", autres_symptomes: "الكرش منفوخة بالغازات، القبط كيتبادل مع الكرش جارية، ودكيكة فالكرش.", redFlag: "نقصان فالوزن بلا ماتقصد، دم فالخروج، سخانة، ولا فقر الدم." },
+  { id: 20, darija: "الكرش جارية", medical: "Diarrhée", definition_medicale: "خروج جاري ولا بالما بزاف ديال المرات فالنهار، غالبا بسبب تسمم غدائي ولا فيروس.", autres_symptomes: "وجع فالكرش بحال التعصار، التقية، والسخانة.", redFlag: "جفاف (الفم ناشف بزاف، العينين داخلين، الجلدة ماكترجعش لبلاصتها)، ولا دم فالخروج." },
+  { id: 21, darija: "القبط", medical: "Constipation", definition_medicale: "صعوبة فالتبرز، الخروج كيكون قاصح ويابس، وغالبا كيكون بسبب قلة الما والألياف فالماكلة.", autres_symptomes: "الكرش منفوخة، حريق لتحت، وإحساس باللي الخروج ماكاملش.", redFlag: "الخروج والريح محبوسين فمرة مع تقية ووجع مجهد فالكرش." },
+  { id: 22, darija: "الردة / التقية", medical: "Vomissements", definition_medicale: "الماكلة ولا السوائل كترجع من المعدة للفم. هي ردة فعل ديال الذات باش تخلص من شي حاجة ضاراها.", autres_symptomes: "دوخة، عرق بارد، وجع فالمعدة، ولا كثرة الريق قبل الردة.", redFlag: "تقية بالدم ولا كحلة بحال التخت ديال القهوة، وجع الراس مجهد بزاف." },
+  { id: 23, darija: "المغص", medical: "Colique abdominale", definition_medicale: "وجع مجهد فالكرش كيجي فحال الموجة (كيزير ويرخف)، ناتج على تشنج فالمصارن.", autres_symptomes: "غازات، كرش منفوخة، ولا تقية خفيفة.", redFlag: "سخانة، وجع كيتزاد وماكينقصش، الكرش قاصحة بزاف ماكتقدرش تقيسها." },
+  { id: 24, darija: "بوصفير", medical: "Ictère", definition_medicale: "تراكم مادة صفرا (البيليروبين) فالدم، كترد العينين والجلدة صفرين. كيعني مشكل فالكبدة ولا المرارة.", autres_symptomes: "البول كيولي مغلوق بحال أتاي، الخروج كيولي بيض، وحكة فالجلدة.", redFlag: "وجع مجهد فالجهة اليمنية الفوق ديال الكرش، سخانة عالية، تقية، وسخفة." },
+  { id: 25, darija: "الدم فالخروج", medical: "Rectorragie / Méléna", definition_medicale: "نزيف من الجهاز الهضمي، كيقدر يكون دم حمر (من المخرج ولا البواسر) أو كحل (من المعدة).", autres_symptomes: "وجع فالكرش، حريق فالمخرج، ولا فقر الدم إذا طال المشكل.", redFlag: "سخفة، دقات القلب مزروبين بزاف، عرق بارد، ووجع مجهد." },
+  { id: 26, darija: "الزوايل / الحنشت", medical: "Parasitose intestinale", definition_medicale: "طفيليات وحنيشات صغار كيعيشو فالمصران، كينتاقلو بالماكلة المامغسولاش ولا اليدين الموسخين.", autres_symptomes: "حكة فالمخرج (خصوصا بالليل)، وجع خفيف، الشهية مسدودة، وعصبية عند الدراري الصغار.", redFlag: "نقصان كبير فالوزن، فقر دم حاد، ولا دم فالخروج." },
+  { id: 27, darija: "الزهوق / الفواك", medical: "Hoquet", definition_medicale: "تشنج لا إرادي فالعضلة ديال الحجاب الحاجز، غالبا كيجي مورا ماكلة بالزربة ولا مشروبات غازية.", autres_symptomes: "إحساس بالهوا واحل فالصدر ولا المعدة.", redFlag: "زهوق ماكيحبسش كتر من يومين، ولا كيمنع النعاس والماكلة." },
+  { id: 28, darija: "حريق البول", medical: "Cystite / Infection urinaire", definition_medicale: "تعفن بكتيري فالمثانة (النبولة) ولا فالمجاري البولية، كيقيس العيالات كتر من الرجال.", autres_symptomes: "كتبغي تبول بزاف وخا النبولة خاوية، البول ريحتو خانزة، وحريق لتحت فالكرش.", redFlag: "سخانة، تبوريشة، وجع مجهد فالظهر فجهة الكلاوي، ولا دم فالبول." },
+  { id: 29, darija: "الدم فالبول", medical: "Hématurie", definition_medicale: "وجود الدم فالبول كيولي لونو حمر ولا قهوي. يقدر يكون بسبب تعفن، حجرة، ولا مشكل فالكلاوي.", autres_symptomes: "حريق البول، وجع فالظهر، ولا صعوبة فالتبوال.", redFlag: "الدم كيبان بوحدو بلاما يكون حريق كاع، ولا المريض كبير فالعمر." },
+  { id: 30, darija: "الكلاوي / وجع الظهر", medical: "Colique néphrétique", definition_medicale: "وجع مجهد بزاف كيشد فالظهر وكيهبط لتحت لجيهة النبولة، غالبا بسبب حجرة حابسة المجرى ديال البول.", autres_symptomes: "التقية، دم فالبول، وصعوبة باش تلقى شي جلسة ولا نعسة تريحك من الوجع.", redFlag: "سخانة، ولا المريض ماكيبولش كاع (انسداد كامل)." },
+  { id: 31, darija: "حريق العادة", medical: "Dysménorrhée", definition_medicale: "وجع فالكرش لتحت والظهر كيتزامن مع العادة الشهرية (حق الشهر) بسبب تقلصات الرحم.", autres_symptomes: "التقية، دوخة، الكرش جارية، وإحساس بالعيا.", redFlag: "وجع مجهد بزاف ماكيفوتش بالدوا العادي، ولا نزيف كبير كيعمر كتر من العادة." },
+  { id: 32, darija: "وجع الولادة", medical: "Contractions utérines", definition_medicale: "وجع مجهد ومنتظم كيشد الكرش كاملة وكيقساح، كيبين باللي الرحم كيوجد راسو للولادة.", autres_symptomes: "الكرش كتولي قاصحة بحال الحجرة وقت الوجع، وإحساس بالتقل لتحت.", redFlag: "نزيف ديال الدم، الما ديال التربية تفركع، ولا المرا ماكتحسش بالتربية كتحرك." },
+  { id: 33, darija: "اللوالة / تعطال العادة", medical: "Aménorrhée", definition_medicale: "انقطاع أو تعطال العادة الشهرية. يقدر يكون بسبب الحبالة، الرضاعة، الخلعة، ولا مشكل هرموني.", autres_symptomes: "الصدر منفوخ كيوجع، الردة فالصباح (إذا كانت حبالة)، ولا تقلب فالمزاج.", redFlag: "وجع مجهد بزاف فالكرش لتحت مع سخفة ونزيف قليل (خطر حمل خارج الرحم)." },
+  { id: 34, darija: "البواسر", medical: "Hémorroïdes", definition_medicale: "عروق دموية منفوخين ومريضة فمنطقة المخرج، كتخرج على برا ولا كتبقى لداخل، غالبا بسبب القبط.", autres_symptomes: "حكة فالمخرج، دم حمر مع الخروج، وإحساس بشي حاجة طالعة لتحت.", redFlag: "دم بزاف ماكيحبسش، ولا كورة قاصحة وزرقا كتضر بزاف ماكتخليكش تجلس." },
+  { id: 35, darija: "كورة فالبزولة", medical: "Nodule mammaire", definition_medicale: "حبوبة، ولسيسة ولا كورة قاصحة كتقاس فالصدر، الأغلبية كيكونو عاديين ولكن ضروري من الفحص.", autres_symptomes: "حريق خفيف فالصدر خصوصا قبل العادة الشهرية.", redFlag: "الجلدة ديال الصدر تبدلات (بحال قشرة الليمون)، ولسيس فالباط، ولا دم كيخرج من الحلمة." },
+  { id: 36, darija: "الغدة / الكواتر", medical: "Goitre / Dysthyroïdie", definition_medicale: "تنفخ فالعنق القدام بسبب الغدة الدرقية، كيقدر يكون معاها إفرازات هرمونية كتر ولا قل من القياس.", autres_symptomes: "نقصان ولا زيادة فالوزن بلا سبب، العيا، رعشة فاليدين، وعرق بزاف.", redFlag: "صعوبة فالتنفس ولا باش تسرط الماكلة، دقات القلب مزروبين بزاف ماكيوقفوش." },
+  { id: 37, darija: "الحبوب", medical: "Acné / Éruptions", definition_medicale: "التهاب فالغدد ديال الجلد، كيخرج حبوب غالبا فالوجه ولا الظهر، مرتبط بالهرمونات ولا البكتيريا.", autres_symptomes: "جلدة مدمة، حبوب بالقيح، ورؤوس كحلة.", redFlag: "الحبوب كيضر بزاف، سخون وحمر وكيكبر بسرعة مع سخانة (خطر تعفن خطير)." },
+  { id: 38, darija: "الحكة", medical: "Prurit", definition_medicale: "إحساس كيخليك باغي تحك الجلدة ديالك، كيقدر يكون بسبب حساسية، نشوفية، ولا مرض داخلي.", autres_symptomes: "حمورية فالجلدة، قشور، ولا حبوب رقيق.", redFlag: "حكة فالذات كاملة بلا حتى شي حبوب باين (يقدر يكون مشكل فالكبدة ولا الكلاوي)." },
+  { id: 39, darija: "الزغب كيطيح", medical: "Alopécie", definition_medicale: "طياح الشعر كتر من 100 زغبة فالنهار. كيقدر يكون وراثي، بسبب ستريس، فقر الدم، ولا نقص فالفيتامينات.", autres_symptomes: "الشعر كيولي خفيف، ضفران كيتهرسو بالزربة، وعيا.", redFlag: "الشعر كيطيح بزاف على غفلة فبلايص محددين (تعلبة)، مع سخانة ولا نقصان الوزن." },
+  { id: 40, darija: "الولسيس / الكورة", medical: "Adénopathie", definition_medicale: "عقد لمفاوية (ولسيس) منفوخة فالعنق، الباط ولا الغبنة، كتنتفخ باش تحارب شي ميكروب ولا تعفن.", autres_symptomes: "حريق ملي كتقيس الولسيس، وسخانة خفيفة.", redFlag: "ولسيسة قاصحة بحال الحجرة، ماكتضرش، ومابغاتش تفش كتر من شهر." },
+  { id: 41, darija: "الظهر كيضر", medical: "Lombalgie", definition_medicale: "حريق فالظهر لتحت، غالبا بسبب هزان التقل، جلسة عوجة، ولا مشكل فالعضلات والعضام ديال السنسول.", autres_symptomes: "حريق كيزداد بالحركة وكينقص بالنعاس، وعضلات الظهر مزيرين.", redFlag: "تنمال ولا ضعف فالرجلين، صعوبة تحكم فالبول ولا الخروج، وسخانة." },
+  { id: 42, darija: "الركابي كيضرو", medical: "Gonalgie / Arthrose", definition_medicale: "حريق فالركبة ناتج على تمزق فالعضلات، مشكل فالغضروف، ولا الكالكير (البرودة).", autres_symptomes: "طرطيق فالركبة ملي كتحرك، وصعوبة باش تنيها مزيان.", redFlag: "ركبة سخونة بزاف، منفوخة وحمرا، مع سخانة والتبوريشة." },
+  { id: 43, darija: "المفاصل كيضرو", medical: "Arthralgie", definition_medicale: "حريق فالعضام ولا المفاصل ديال اليدين والرجلين، كيقدر يكون بسبب الروماتيزم ولا التهاب.", autres_symptomes: "المفاصل كيكونو مزيرين ومعكازين فالصباح ملي كتفيق.", redFlag: "مفاصل كتر منفوخين وحمرين، سخانة، ولا حريق كيبدل البلاصة من مفصل لآخر." },
+  { id: 44, darija: "الكناب / تشنج عضلي", medical: "Crampes", definition_medicale: "العضلة كتجمع وكتقصاح على غفلة، غالبا فالرجلين بالليل ولا مورا مجهود بدني.", autres_symptomes: "وجع مجهد وقصير، والعضلة كتحس بيها قاصحة تحت يدك.", redFlag: "تشنجات مجهدين فالذات كاملة بلا سبب، ولا بان مورا ما خديتي شي دوا جديد." },
+  { id: 45, darija: "ضربة للراس", medical: "Trauma crânien", definition_medicale: "أي دقة قوية فالراس بسبب طيحة ولا كسيدة، ضروري مراقبة المريض موراها 24 ساعة.", autres_symptomes: "صداع الراس، دوخة خفيفة، ونبغة (تنفخ) فبلاصت الضربة.", redFlag: "فقدان الوعي (وخا غير ثواني)، تقية مجهدة مورا الضربة، ولا نعاس بزاف المريض ماكيفيقش." },
+  { id: 46, darija: "التهرسية", medical: "Fracture", definition_medicale: "تهرسية ولا شقة فالعضم مورا طيحة ولا ضربة مجهدة.", autres_symptomes: "تنفخ بالزربة، حريق مجهد ماكيخليكش تحرك البلاصة، وزروقية.", redFlag: "العضم باين مشرق الجلدة، ولا الجهة لتحت من التهرسية زرقا، باردة، وماكتحسش بيها." },
+  { id: 47, darija: "الضفرة", medical: "Panaris / Ongle incarné", definition_medicale: "تعفن بالبكتيريا فجناب ديال الظفر ديال الصبع (يد ولا رجل)، غالبا بسبب ظفر داخل فاللحم ولا جرحة.", autres_symptomes: "تنفخ، حمورية، وحريق كينبض بحال القلب فالصبع.", redFlag: "القيح باين بزايد، خط حمر طالع فالعروق ديال اليد ولا الرجل، مع سخانة." },
+  { id: 48, darija: "السكر", medical: "Diabète", definition_medicale: "مرض مزمن كيعني أن نسبة السكر (الكليكوز) طالعة فالدم، حيت البنكرياس ماكيفرزش لانسولين كافي.", autres_symptomes: "كتبغي تبول بزاف، كتعطش بزاف، العيا، ونقصان الوزن بلا ريجيم.", redFlag: "سخفة مجهدة، ريحة ديال التفاح الخانز فالفم، دوخة كبيرة ولا غيبوبة السكر." },
+  { id: 49, darija: "حبوب لتحت", medical: "IST / Infection sexuelle", definition_medicale: "تعفن ولا ميكروب كينتاقل عبر العلاقة الجنسية، كيقيس المنطقة الحساسة.", autres_symptomes: "حكة، حريق البول، وإفرازات فيها ريحة خايبة.", redFlag: "القيح كيخرج، سخانة، وجع مجهد فالكرش لتحت عند العيالات." },
+  { id: 50, darija: "النعاس بزاف / الفشلة", medical: "Asthénie / Somnolence", definition_medicale: "عيا مجهد ولا رغبة شديدة فالنعاس كتر من القياس العادي، يقدر يكون بسبب فقر الدم، الغدة، ولا الاكتئاب.", autres_symptomes: "قلة التركيز، فشلة فالعضلات، وماكتقدرش تكمل خدمتك اليومية.", redFlag: "صعوبة باش تفيق، المريض كيهتر وماكيجاوبش مزيان، ولا نفس تقيلة بزاف." }
+];
+
+let currentQuery = '';
+let selectedId = null;
+
+function splitSymptoms(text) {
+  if (!text) return [];
+  return text
+    .replace(/\.$/, '')
+    .split('،')
+    .map(s => s.replace(/^\s*و/, '').trim())
+    .filter(Boolean);
+}
+
+function getResults(q) {
+  const query = (q || '').trim().toLowerCase();
+  if (!query) return DATA;
+  return DATA.filter(d =>
+    d.darija.toLowerCase().includes(query) ||
+    d.medical.toLowerCase().includes(query) ||
+    d.definition_medicale.toLowerCase().includes(query)
+  );
+}
+
+function renderHome() {
+  const results = getResults(currentQuery);
+  const q = currentQuery.trim();
+  const grid = document.getElementById('results-grid');
+  const noRes = document.getElementById('no-results');
+  const countLabel = document.getElementById('count-label');
+
+  if (q) {
+    countLabel.textContent = results.length
+      ? results.length + ' نتيجة على « ' + q + ' »'
+      : 'حتى نتيجة على « ' + q + ' »';
+  } else {
+    countLabel.textContent = DATA.length + ' مصطلح طبي مشروح بالدارجة';
+  }
+
+  if (results.length === 0) {
+    grid.innerHTML = '';
+    noRes.style.display = 'block';
+    return;
+  }
+
+  noRes.style.display = 'none';
+  grid.innerHTML = results.map(item => `
+    <button class="card-btn" onclick="openDetail(${item.id})">
+      <span style="display:flex; flex-direction:column; gap:4px; min-width:0;">
+        <span style="font-size:20px; font-weight:700; color:#11161D; letter-spacing:-0.3px;">${item.darija}</span>
+        <span dir="ltr" style="font-family:'IBM Plex Sans',sans-serif; font-style:italic; font-weight:500; font-size:13.5px; color:#6B7787; direction:ltr; unicode-bidi:isolate; text-align:start;">${item.medical}</span>
+      </span>
+      <span style="flex-shrink:0; display:flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; background:#EFF4FF; color:#0052FF;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </button>
+  `).join('');
+}
+
+function openDetail(id) {
+  const item = DATA.find(d => d.id === id);
+  if (!item) return;
+  selectedId = id;
+
+  document.getElementById('detail-darija').textContent = item.darija;
+  document.getElementById('detail-medical').textContent = item.medical;
+  document.getElementById('detail-definition').textContent = item.definition_medicale;
+
+  const img = document.getElementById('detail-img');
+  const fallback = document.getElementById('detail-img-fallback');
+  const fallbackText = document.getElementById('detail-fallback-text');
+  const url = IMAGE_URLS[item.id] || '';
+
+  img.onerror = null;
+  if (url) {
+    img.src = url;
+    img.alt = item.darija;
+    img.style.display = 'block';
+    fallback.style.display = 'none';
+    img.onerror = function() {
+      img.style.display = 'none';
+      fallback.style.display = 'flex';
+      fallbackText.textContent = item.darija;
+    };
+  } else {
+    img.style.display = 'none';
+    fallback.style.display = 'flex';
+    fallbackText.textContent = item.darija;
+  }
+  document.getElementById('detail-redflag').textContent = item.redFlag;
+
+  const syms = splitSymptoms(item.autres_symptomes);
+  document.getElementById('detail-symptoms').innerHTML = syms.map(sym => `
+    <li style="display:flex; align-items:flex-start; gap:11px; font-size:15.5px; line-height:1.6; color:#41505F;">
+      <span style="flex-shrink:0; margin-top:8px; width:7px; height:7px; border-radius:50%; background:#0052FF; display:inline-block;"></span>
+      <span>${sym}</span>
+    </li>
+  `).join('');
+
+  document.getElementById('view-home').classList.add('hidden');
+  document.getElementById('view-detail').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goBack() {
+  selectedId = null;
+  document.getElementById('view-home').classList.remove('hidden');
+  document.getElementById('view-detail').classList.remove('active');
+}
+
+function goHome() {
+  selectedId = null;
+  currentQuery = '';
+  document.getElementById('search-input').value = '';
+  document.getElementById('view-home').classList.remove('hidden');
+  document.getElementById('view-detail').classList.remove('active');
+  renderHome();
+}
+
+document.getElementById('search-input').addEventListener('input', function(e) {
+  currentQuery = e.target.value;
+  renderHome();
+});
+
+document.getElementById('back-btn').addEventListener('click', goBack);
+document.getElementById('logo-link').addEventListener('click', goHome);
+
+renderHome();
+</script>
+</body>
+</html>
