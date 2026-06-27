@@ -1,0 +1,125 @@
+<svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e6f4f6"/>
+      <stop offset="100%" stop-color="#cce8ed"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="38%" cy="55%" r="22%">
+      <stop offset="0%" stop-color="#E23B33" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#E23B33" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="skinTone" cx="40%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#F9C8A0"/>
+      <stop offset="100%" stop-color="#E8A878"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="480" height="280" fill="url(#bg)"/>
+
+  <!-- ── HUMAN FIGURE ── -->
+
+  <!-- Head -->
+  <ellipse cx="185" cy="36" rx="23" ry="26" fill="url(#skinTone)" stroke="#d49060" stroke-width="0.8"/>
+  <!-- Hair -->
+  <path d="M163,30 Q165,10 185,8 Q205,10 207,30 Q200,16 185,15 Q170,16 163,30Z" fill="#5c3d1e"/>
+  <!-- Left eye -->
+  <ellipse cx="178" cy="34" rx="3" ry="3.5" fill="#fff" stroke="#555" stroke-width="0.5"/>
+  <circle cx="178" cy="35" r="2" fill="#333"/>
+  <!-- Right eye -->
+  <ellipse cx="192" cy="34" rx="3" ry="3.5" fill="#fff" stroke="#555" stroke-width="0.5"/>
+  <circle cx="192" cy="35" r="2" fill="#333"/>
+  <!-- Mouth (grimace of pain) -->
+  <path d="M179,46 Q185,42 191,46" stroke="#c07050" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Eyebrows furrowed (pain expression) -->
+  <path d="M175,27 Q178,24 181,26" stroke="#5c3d1e" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M189,26 Q192,24 195,27" stroke="#5c3d1e" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Neck -->
+  <rect x="179" y="60" width="12" height="16" rx="3" fill="url(#skinTone)" stroke="#d49060" stroke-width="0.5"/>
+
+  <!-- Torso (shirt) -->
+  <path d="M138,74 Q160,66 179,74 L179,200 Q170,205 158,204 L148,200 L138,74Z" fill="#1C7C8C"/>
+  <path d="M232,74 Q210,66 191,74 L191,200 Q200,205 212,204 L222,200 L232,74Z" fill="#1C7C8C"/>
+  <rect x="179" y="74" width="12" height="126" fill="#1C7C8C"/>
+  <!-- Shirt collar V -->
+  <path d="M179,74 L185,85 L191,74" fill="#e6f4f6" stroke="#1C7C8C" stroke-width="0.5"/>
+
+  <!-- LEFT ARM (patient's right) — bent forward, hand pressing on HCD -->
+  <!-- Upper arm -->
+  <path d="M141,78 Q118,96 108,130" stroke="url(#skinTone)" stroke-width="13" fill="none" stroke-linecap="round"/>
+  <!-- Forearm bent -->
+  <path d="M108,130 Q108,155 118,162" stroke="url(#skinTone)" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <!-- Hand pressing HCD -->
+  <ellipse cx="120" cy="161" rx="13" ry="9" fill="url(#skinTone)" stroke="#d49060" stroke-width="0.5" transform="rotate(-25,120,161)"/>
+  <!-- Fingers -->
+  <rect x="108" y="154" width="6" height="12" rx="3" fill="url(#skinTone)" transform="rotate(-20,111,160)"/>
+  <rect x="115" y="151" width="6" height="13" rx="3" fill="url(#skinTone)" transform="rotate(-10,118,157)"/>
+  <rect x="122" y="151" width="6" height="13" rx="3" fill="url(#skinTone)" transform="rotate(0,125,157)"/>
+  <rect x="129" y="153" width="6" height="11" rx="3" fill="url(#skinTone)" transform="rotate(12,132,158)"/>
+
+  <!-- RIGHT ARM (patient's left) — relaxed, hanging slightly down -->
+  <path d="M229,80 Q250,105 254,148 Q255,162 248,170" stroke="url(#skinTone)" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <ellipse cx="246" cy="172" rx="11" ry="8" fill="url(#skinTone)" stroke="#d49060" stroke-width="0.5"/>
+
+  <!-- ── HCD REGION HIGHLIGHT ── -->
+  <!-- Pain glow on upper left torso (patient's right = HCD) -->
+  <ellipse cx="148" cy="138" rx="38" ry="36" fill="url(#glow)"/>
+
+  <!-- HCD dashed box on torso -->
+  <rect x="138" y="92" width="40" height="54" rx="4" fill="rgba(226,59,51,0.12)" stroke="#E23B33" stroke-width="1.8" stroke-dasharray="5,3"/>
+
+  <!-- Pain pulse circles -->
+  <circle cx="151" cy="134" r="7" fill="#E23B33" opacity="0.88"/>
+  <circle cx="151" cy="134" r="12" fill="none" stroke="#E23B33" stroke-width="1.5" opacity="0.45"/>
+  <circle cx="151" cy="134" r="18" fill="none" stroke="#E23B33" stroke-width="1" opacity="0.2"/>
+  <!-- Pain sparkles -->
+  <circle cx="141" cy="116" r="3.5" fill="#E23B33" opacity="0.55"/>
+  <circle cx="163" cy="110" r="2.5" fill="#E23B33" opacity="0.4"/>
+  <circle cx="133" cy="152" r="3" fill="#E23B33" opacity="0.45"/>
+
+  <!-- ── ANNOTATION LINE + LABEL ── -->
+  <line x1="136" y1="119" x2="62" y2="100" stroke="#E23B33" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <circle cx="62" cy="100" r="3" fill="#E23B33"/>
+
+  <!-- HCD label box -->
+  <rect x="4" y="78" width="57" height="44" rx="7" fill="white" fill-opacity="0.96" stroke="#E23B33" stroke-width="1.5"/>
+  <text x="32" y="93" text-anchor="middle" font-size="12" font-weight="800" fill="#E23B33">HCD</text>
+  <text x="32" y="104" text-anchor="middle" font-size="7" fill="#4a3f3a">Hypochondre</text>
+  <text x="32" y="114" text-anchor="middle" font-size="7" fill="#4a3f3a">droit</text>
+
+  <!-- ── ORGAN LIST (right panel) ── -->
+  <rect x="310" y="72" width="164" height="142" rx="10" fill="white" fill-opacity="0.92"/>
+  <rect x="310" y="72" width="164" height="26" rx="10" fill="#1C7C8C" fill-opacity="0.12"/>
+  <text x="392" y="89" text-anchor="middle" font-size="9" font-weight="700" fill="#1C7C8C">Organes de l'HCD</text>
+  <line x1="316" y1="98" x2="468" y2="98" stroke="#f0e7e1" stroke-width="0.8"/>
+  <!-- organ rows -->
+  <circle cx="323" cy="109" r="4" fill="#1C7C8C" fill-opacity="0.15"/>
+  <text x="323" cy="109" text-anchor="middle" font-size="8" fill="#1C7C8C" dy="3">🫀</text>
+  <text x="332" y="113" font-size="8" fill="#2A211E">Foie</text>
+
+  <circle cx="323" cy="123" r="4" fill="#1C7C8C" fill-opacity="0.15"/>
+  <text x="332" y="127" font-size="8" fill="#2A211E">Vésicule biliaire + VBP</text>
+
+  <text x="332" y="141" font-size="8" fill="#2A211E">Pancréas (tête)</text>
+  <text x="332" y="155" font-size="8" fill="#2A211E">Duodénum</text>
+  <text x="332" y="169" font-size="8" fill="#2A211E">Rein droit + surrénale</text>
+  <text x="332" y="183" font-size="8.5" fill="#E23B33" font-weight="700">⚠ Poumon + plèvre D !</text>
+  <text x="332" y="199" font-size="7" fill="#9c8f89" font-style="italic">(organe extra-abdominal)</text>
+
+  <!-- ── BOTTOM BAND ── -->
+  <rect x="0" y="222" width="480" height="58" rx="0" fill="rgba(42,33,30,0.06)"/>
+  <text x="240" y="238" text-anchor="middle" font-size="9" font-weight="700" fill="#2A211E">Caractères sémiologiques à rechercher</text>
+  <!-- Three columns -->
+  <text x="20" y="251" font-size="7.5" font-weight="700" fill="#E23B33">Irradiations</text>
+  <text x="20" y="262" font-size="7.5" fill="#4a3f3a">• Épaule droite</text>
+  <text x="20" y="272" font-size="7.5" fill="#4a3f3a">• Dorso-lombaire</text>
+
+  <text x="180" y="251" font-size="7.5" font-weight="700" fill="#1C7C8C">Type de douleur</text>
+  <text x="180" y="262" font-size="7.5" fill="#4a3f3a">• Brûlure / Spasme</text>
+  <text x="180" y="272" font-size="7.5" fill="#4a3f3a">• Bloque la respiration</text>
+
+  <text x="345" y="251" font-size="7.5" font-weight="700" fill="#5b3fa0">Signes associés</text>
+  <text x="345" y="262" font-size="7.5" fill="#4a3f3a">• Fièvre / Ictère</text>
+  <text x="345" y="272" font-size="7.5" fill="#4a3f3a">• Nausées / Prurit</text>
+</svg>
